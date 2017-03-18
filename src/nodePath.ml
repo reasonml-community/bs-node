@@ -22,9 +22,45 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. *)
 
-type options
+external basename : string -> string = "" [@@bs.module "path"]
+external basenameExt : path:string -> ext:string -> string  =
+  "basename" [@@bs.module "path"]
 
-external options : ?cwd:string -> ?encoding:string -> unit -> options = "" [@@bs.obj]
+external delimiter : string = "" [@@bs.module "path"]
 
-(* TODO: when no option it would return buffer  *)
-external execSync : string -> options -> string = "" [@@bs.module "child_process"]
+external dirname : string -> string = "" [@@bs.module "path"]
+
+type pathObject =
+  [%bs.obj: <
+         dir : string ;
+         root : string ;
+         base : string ;
+         name : string ;
+         ext : string          
+       >            
+  ]  
+external format : pathObject -> string = "" [@@bs.module "path"]
+
+external isAbsolute : string -> bool = "" [@@bs.module "path"]
+
+(* TODO: improve after we support [@bs.rest] calling convention  *)
+external join2 : string -> string -> string = "join" [@@bs.module "path"]
+
+external join : string array -> string = "" 
+[@@bs.module "path"]  [@@bs.splice]
+   
+external normalize : string -> string = "" [@@bs.module "path"]
+
+(* TODO: check if there is an exception raised *)
+external parse : string -> pathObject = "" [@@bs.module "path"]
+
+(* TODO: provide bindings to [path.posix]*)
+
+external relative : from:string -> to_:string -> unit -> string =
+  "" [@@bs.module "path"]
+
+external resolve : string array -> string = "" [@@bs.module "path"] [@@bs.splice]
+
+external sep : string = "" [@@bs.module "path"]
+
+(* TODO: provides [path.win32] *)

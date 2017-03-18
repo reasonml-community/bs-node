@@ -22,6 +22,5 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. *)
 
-external module_ :
-  < __cache : Node_types.node_module Js_dict.t  > Js.t
-    = "module" [@@bs.val]
+(* TODO: when no option it would return buffer  *)
+external execSync : string -> NodeTypes.Options.t -> string = "" [@@bs.module "child_process"]

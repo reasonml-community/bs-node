@@ -22,28 +22,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. *)
 
-(** place holder for node bindings *)
+module Buffer = NodeBuffer
+module ChildProcess = NodeChildProcess
+module Fs = NodeFs
+module Module =  NodeModule
+module Path = NodePath
+module Process = NodeProcess
 
-module Path = Node_path
-
-module Fs = Node_fs
-
-module Process = Node_process
-
-module Module =  Node_module
-module Buffer = Node_buffer
-module Child_process = Node_child_process
-
-open Node_types
-
-type _ string_buffer_kind = 
-  | String :  string string_buffer_kind
-  | Buffer :  buffer string_buffer_kind
-
+type _ stringBufferKind =
+  | String :  Js.String.t stringBufferKind
+  | Buffer :  Buffer.t stringBufferKind
 
 (** We except a good inliner will eliminate such boxing in the future *)
-let test (type t) (x : string_buffer) : (t string_buffer_kind * t)= 
-  if Js.typeof x = "string" then 
-    (Obj.magic String : t string_buffer_kind),  (Obj.magic x : t)
-  else 
-    (Obj.magic Buffer : t string_buffer_kind), (Obj.magic x : t)
+let test (type t) (x : NodeTypes.StringBuffer.t) : (t stringBufferKind * t)=
+  if Js.typeof x = "string" then
+    (Obj.magic String : t stringBufferKind), (Obj.magic x : t)
+  else
+    (Obj.magic Buffer : t stringBufferKind), (Obj.magic x : t)

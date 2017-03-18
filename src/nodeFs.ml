@@ -58,14 +58,14 @@ module Watch = struct
   [@@bs.module "fs"]
   (** there is no need to accept listener, since we return a [watcher] 
       back it can register event listener there .
-      Currently we introduce a type [string_buffer], for the 
+      Currently we introduce a type [stringBuffer], for the
       [filename], it will be [Buffer] when the encoding is `utf8. 
       This is dependent type which can be tracked by GADT in some way, 
       but to make things simple, let's just introduce an or type
   *)
   external on :
     ([
-      `change of (string (*eventType*) -> Node_types.string_buffer (* filename *) -> unit  [@bs])
+      `change of (string (*eventType*) -> NodeTypes.StringBuffer.t (* filename *) -> unit  [@bs])
     | `error of (unit -> unit [@bs])
     ] [@bs.string]
     ) -> t = "" 
@@ -94,16 +94,16 @@ external openSync :
   path ->
   (
     [ `Read [@bs.as "r"]
-    | `Read_write [@bs.as "r+"]
-    | `Read_write_sync [@bs.as "rs+"]
+    | `ReadWrite [@bs.as "r+"]
+    | `ReadWriteSync [@bs.as "rs+"]
     | `Write [@bs.as "w"]
-    | `Write_fail_if_exists [@bs.as "wx"]
-    | `Write_read [@bs.as "w+"]
-    | `Write_read_fail_if_exists [@bs.as "wx+"]
+    | `WriteFailIfExists [@bs.as "wx"]
+    | `WriteRead [@bs.as "w+"]
+    | `WriteReadFailIfExists [@bs.as "wx+"]
     | `Append [@bs.as "a"]
-    | `Append_fail_if_exists [@bs.as "ax"]
-    | `Append_read [@bs.as "a+"]
-    | `Append_read_fail_if_exists [@bs.as "ax+"]
+    | `AppendFailIfExists [@bs.as "ax"]
+    | `AppendRead [@bs.as "a+"]
+    | `AppendReadFailIfExists [@bs.as "ax+"]
     ] [@bs.string]) ->
   unit = ""  [@@bs.module "fs"]
 

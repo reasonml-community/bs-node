@@ -22,11 +22,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. *)
 
-
-type t = Node_types.buffer
-
-external isBuffer : 'a -> bool = "Buffer.isBuffer"
-[@@bs.val]
-
-external fromString : string -> t = "Buffer.from"
-[@@bs.val]
+external module_ :
+  < __cache : NodeTypes.NodeModule.t Js.Dict.t > Js.t
+    = "module" [@@bs.val]
