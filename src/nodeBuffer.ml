@@ -22,36 +22,51 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. *)
 
-type t = NodeTypes.Buffer.t
+open Js.Typed_array
 
-external isBuffer : 'a -> bool = "Buffer.isBuffer" [@@bs.val]
+type t
+
 external fromString : string -> t = "Buffer.from" [@@bs.val]
-external fromStringEncoding : string:string -> encoding:string -> t =
+external fromEncoding : string -> encoding:string -> t =
   "Buffer.from" [@@bs.val]
 external fromArray : int array -> t = "Buffer.from" [@@bs.val]
 external fromArrayBuffer : ArrayBuffer.t -> t = "Buffer.from" [@@bs.val]
-external fromArrayBufferOffset: arrayBuffer:ArrayBuffer.t -> byteOffset:int ->
-  t = "Buffer.from" [@@bs.val]
-external fromArrayBufferOffsetLength: arrayBuffer:ArrayBuffer.t ->
-  byteOffset:int -> length:int -> t = "Buffer.from" [@@bs.val]
+external fromArrayBufferOffset: ArrayBuffer.t -> offset:int -> t =
+  "Buffer.from" [@@bs.val]
+external fromArrayBufferRange: ArrayBuffer.t -> offset:int ->
+  length:int -> t = "Buffer.from" [@@bs.val]
 external fromBuffer: t -> t = "Buffer.from" [@@bs.val]
 external alloc: int -> t = "Buffer.alloc" [@@bs.val]
-external allocFillInt: size:int -> fill:int -> t = "Buffer.alloc" [@@bs.val]
-external allocFillString: size:int -> fill:string -> t =
+external allocFillInt: int -> fill:int -> t = "Buffer.alloc" [@@bs.val]
+external allocFillString: int -> fill:string -> t = "Buffer.alloc" [@@bs.val]
+external allocFillBuffer: int -> fill:t -> t = "Buffer.alloc" [@@bs.val]
+external allocFillEncoding: int -> fill:Js.String.t -> encoding:int -> t =
   "Buffer.alloc" [@@bs.val]
-external allocFillBuffer: size:int -> fill:t -> t = "Buffer.alloc" [@@bs.val]
-external allocFillStringEncoding: size:int -> fill:Js.String.t ->
-  encoding:int -> t = "Buffer.alloc" [@@bs.val]
 external allocUnsafe: int -> t = "Buffer.allocUnsafe" [@@bs.val]
 external allocUnsafeSlow: int -> t = "Buffer.allocUnsafeSlow" [@@bs.val]
 external toString: t -> Js.String.t = "" [@@bs.send]
-external get : t -> int -> int = "" [@@bs.get_index]
-external set : t -> int -> int -> unit = "" [@@bs.set_index]
+external unsafeGet : t -> int -> int = "" [@@bs.get_index]
+external unsafeSet : t -> int -> int -> unit = "" [@@bs.set_index]
 external byteLengthString : Js.String.t -> int = "Buffer.byteLength" [@@bs.val]
 external byteLengthStringEncoding : Js.String.t -> int =
   "Buffer.byteLength" [@@bs.val]
 external byteLengthBuffer : t -> int = "Buffer.byteLength" [@@bs.val]
-external byteLengthTypedArray : TypedArray.t -> int = "Buffer.byteLength" [@@bs.val]
+external byteLengthInt8Array : int Int8Array.typed_array -> int =
+  "Buffer.byteLength" [@@bs.val]
+external byteLengthUint8Array : int Uint8Array.typed_array -> int =
+  "Buffer.byteLength" [@@bs.val]
+external byteLengthInt16Array : int Int16Array.typed_array -> int =
+  "Buffer.byteLength" [@@bs.val]
+external byteLengthUint16Array : int Uint16Array.typed_array -> int =
+  "Buffer.byteLength" [@@bs.val]
+external byteLengthInt32Array : int Int32Array.typed_array -> int =
+  "Buffer.byteLength" [@@bs.val]
+external byteLengthUint32Array : int Uint32Array.typed_array -> int =
+  "Buffer.byteLength" [@@bs.val]
+external byteLengthFloat32Array : float Float32Array.typed_array -> int =
+  "Buffer.byteLength" [@@bs.val]
+external byteLengthFloat64Array : float Float64Array.typed_array -> int =
+  "Buffer.byteLength" [@@bs.val]
 external byteLengthDataView : DataView.t -> int = "Buffer.byteLength" [@@bs.val]
 external byteLengthArrayBuffer : ArrayBuffer.t -> int = "Buffer.byteLength" [@@bs.val]
 external compare : t -> t -> int = "Buffer.compare" [@@bs.val]

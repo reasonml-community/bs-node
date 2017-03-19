@@ -23,4 +23,4 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA. *)
 
 (* TODO: when no option it would return buffer  *)
-external execSync : string -> NodeTypes.Options.t -> string = "" [@@bs.module "child_process"]
+external execSync : string -> NodeOptions.t -> string = "" [@@bs.module "child_process"]

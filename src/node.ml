@@ -28,14 +28,4 @@ module Fs = NodeFs
 module Module =  NodeModule
 module Path = NodePath
 module Process = NodeProcess
-
-type _ stringBufferKind =
-  | String :  Js.String.t stringBufferKind
-  | Buffer :  Buffer.t stringBufferKind
-
-(** We except a good inliner will eliminate such boxing in the future *)
-let test (type t) (x : NodeTypes.StringBuffer.t) : (t stringBufferKind * t)=
-  if Js.typeof x = "string" then
-    (Obj.magic String : t stringBufferKind), (Obj.magic x : t)
-  else
-    (Obj.magic Buffer : t stringBufferKind), (Obj.magic x : t)
+module StringBuffer = NodeStringBuffer

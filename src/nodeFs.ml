@@ -65,7 +65,7 @@ module Watch = struct
   *)
   external on :
     ([
-      `change of (string (*eventType*) -> NodeTypes.StringBuffer.t (* filename *) -> unit  [@bs])
+      `change of (string (*eventType*) -> NodeStringBuffer.t (* filename *) -> unit  [@bs])
     | `error of (unit -> unit [@bs])
     ] [@bs.string]
     ) -> t = "" 
