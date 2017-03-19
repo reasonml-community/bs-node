@@ -26,8 +26,8 @@ open Js.Typed_array
 
 type t
 
-external fromString : string -> t = "Buffer.from" [@@bs.val]
-external fromEncoding : string -> encoding:string -> t =
+external fromString : Js.String.t -> t = "Buffer.from" [@@bs.val]
+external fromStringWithEncoding : Js.String.t -> encoding:Js.String.t -> t =
   "Buffer.from" [@@bs.val]
 external fromArray : int array -> t = "Buffer.from" [@@bs.val]
 external fromArrayBuffer : ArrayBuffer.t -> t = "Buffer.from" [@@bs.val]
@@ -38,17 +38,17 @@ external fromArrayBufferRange: ArrayBuffer.t -> offset:int ->
 external fromBuffer: t -> t = "Buffer.from" [@@bs.val]
 external alloc: int -> t = "Buffer.alloc" [@@bs.val]
 external allocFillInt: int -> fill:int -> t = "Buffer.alloc" [@@bs.val]
-external allocFillString: int -> fill:string -> t = "Buffer.alloc" [@@bs.val]
+external allocFillString: int -> fill:Js.String.t -> t = "Buffer.alloc" [@@bs.val]
+external allocFillStringWithEncoding: int -> fill:Js.String.t ->
+  encoding:Js.String.t -> t = "Buffer.alloc" [@@bs.val]
 external allocFillBuffer: int -> fill:t -> t = "Buffer.alloc" [@@bs.val]
-external allocFillEncoding: int -> fill:Js.String.t -> encoding:int -> t =
-  "Buffer.alloc" [@@bs.val]
 external allocUnsafe: int -> t = "Buffer.allocUnsafe" [@@bs.val]
 external allocUnsafeSlow: int -> t = "Buffer.allocUnsafeSlow" [@@bs.val]
 external toString: t -> Js.String.t = "" [@@bs.send]
 external unsafeGet : t -> int -> int = "" [@@bs.get_index]
 external unsafeSet : t -> int -> int -> unit = "" [@@bs.set_index]
 external byteLengthString : Js.String.t -> int = "Buffer.byteLength" [@@bs.val]
-external byteLengthStringEncoding : Js.String.t -> int =
+external byteLengthStringWithEncoding : Js.String.t -> encoding:Js.String.t -> int =
   "Buffer.byteLength" [@@bs.val]
 external byteLengthBuffer : t -> int = "Buffer.byteLength" [@@bs.val]
 external byteLengthInt8Array : int Int8Array.typed_array -> int =
