@@ -51,22 +51,72 @@ external byteLengthString : Js.String.t -> int = "Buffer.byteLength" [@@bs.val]
 external byteLengthStringWithEncoding : Js.String.t -> encoding:Js.String.t -> int =
   "Buffer.byteLength" [@@bs.val]
 external byteLengthBuffer : t -> int = "Buffer.byteLength" [@@bs.val]
-external byteLengthInt8Array : int Int8Array.typed_array -> int =
+external byteLengthInt8Array : Int8Array.t -> int =
   "Buffer.byteLength" [@@bs.val]
-external byteLengthUint8Array : int Uint8Array.typed_array -> int =
+external byteLengthUint8Array : Uint8Array.t -> int =
   "Buffer.byteLength" [@@bs.val]
-external byteLengthInt16Array : int Int16Array.typed_array -> int =
+external byteLengthInt16Array : Int16Array.t -> int =
   "Buffer.byteLength" [@@bs.val]
-external byteLengthUint16Array : int Uint16Array.typed_array -> int =
+external byteLengthUint16Array : Uint16Array.t -> int =
   "Buffer.byteLength" [@@bs.val]
-external byteLengthInt32Array : int Int32Array.typed_array -> int =
+external byteLengthInt32Array : Int32Array.t -> int =
   "Buffer.byteLength" [@@bs.val]
-external byteLengthUint32Array : int Uint32Array.typed_array -> int =
+external byteLengthUint32Array : Uint32Array.t -> int =
   "Buffer.byteLength" [@@bs.val]
-external byteLengthFloat32Array : float Float32Array.typed_array -> int =
+external byteLengthFloat32Array : Float32Array.t -> int =
   "Buffer.byteLength" [@@bs.val]
-external byteLengthFloat64Array : float Float64Array.typed_array -> int =
+external byteLengthFloat64Array : Float64Array.t -> int =
   "Buffer.byteLength" [@@bs.val]
 external byteLengthDataView : DataView.t -> int = "Buffer.byteLength" [@@bs.val]
 external byteLengthArrayBuffer : ArrayBuffer.t -> int = "Buffer.byteLength" [@@bs.val]
 external compare : t -> t -> int = "Buffer.compare" [@@bs.val]
+external concat : t array -> t = "Buffer.concat" [@@bs.val]
+external concatLength : t array -> length:int -> t = "Buffer.concat" [@@bs.val]
+external isEncoding : Js.String.t -> bool = "Buffer.isEncoding" [@@bs.val]
+type buffer
+external buffer : buffer = "Buffer" [@@bs.val]
+external poolSize : int = "Buffer.poolSize" [@@bs.val]
+external setPoolSize : buffer -> int -> int = "poolSize" [@@bs.set]
+let setPoolSize n = setPoolSize buffer n
+external copy : t -> t -> int = "" [@@bs.send]
+external copyOffset : t -> t -> targetStart:int -> int = "copy" [@@bs.send]
+external copyOffsetSource : t -> t -> targetStart:int -> sourceStart:int ->
+  int = "copy" [@@bs.send]
+external copyRangeSource : t -> t -> targetStart:int -> sourceStart:int ->
+  sourceEnd:int -> int = "copy" [@@bs.send]
+external copyToUint8Array : t -> Uint8Array.t -> int = "copy" [@@bs.send]
+external copyToUint8ArrayOffset : t -> Uint8Array.t -> targetStart:int ->
+  int = "copy" [@@bs.send]
+external copyToUint8ArrayOffsetSource : t -> Uint8Array.t -> targetStart:int ->
+  sourceStart:int -> int = "copy" [@@bs.send]
+external copyToUint8ArrayRangeSource : t -> Uint8Array.t -> targetStart:int ->
+  sourceStart:int -> sourceEnd:int -> int = "copy" [@@bs.send]
+(* FIXME after iterators support *)
+(* external entries : t -> Iterator = "entries" [@@bs.get] *)
+external equals : t -> t -> bool = "" [@@bs.send]
+external fillString : t -> Js.String.t -> t = "fill" [@@bs.send]
+external fillStringOffset : t -> value:Js.String.t -> offset:int -> t =
+  "fill" [@@bs.send]
+external fillStringRange : t -> value:Js.String.t -> offset:int ->
+  offsetEnd:int -> t = "fill" [@@bs.send]
+external fillStringRangeWithEncoding : t -> value:Js.String.t -> offset:int ->
+  offsetEnd:int -> encoding:Js.String.t -> t = "fill" [@@bs.send]
+external fillBuffer : t -> t -> t = "fill" [@@bs.send]
+external fillBufferOffset : t -> value:t -> offset:int -> t = "fill" [@@bs.send]
+external fillBufferRange : t -> value:t -> offset:int -> offsetEnd:int -> t =
+  "fill" [@@bs.send]
+external fillInt : t -> int -> t = "fill" [@@bs.send]
+external fillIntOffset : t -> value:int -> offset:int -> t = "fill" [@@bs.send]
+external fillIntRange : t -> value:int -> offset:int -> offsetEnd:int -> t =
+  "fill" [@@bs.send]
+external includesString : t -> Js.String.t -> bool = "includes" [@@bs.send]
+external includesStringOffset : t -> value:Js.String.t -> offset:int -> bool =
+  "includes" [@@bs.send]
+external includesStringOffsetWithEncoding : t -> value:Js.String.t -> offset:int ->
+  encoding:Js.String.t -> bool ="includes" [@@bs.send]
+external includesBuffer : t -> t -> bool = "includes" [@@bs.send]
+external includesBufferOffset : t -> value:t -> offset:int -> bool =
+  "includes" [@@bs.send]
+external includesInt : t -> int -> bool = "includes" [@@bs.send]
+external includesIntOffset : t -> value:int -> offset:int -> bool =
+  "includes" [@@bs.send]
