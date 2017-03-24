@@ -87,14 +87,14 @@ let setPoolSize n = setPoolSize buffer n
 
 external copy : t -> t -> int = "" [@@bs.send]
 external copyOffset : t -> t -> targetStart:int -> int = "copy" [@@bs.send]
-external copyOffsetFromSourceOffset : t -> t -> targetStart:int -> sourceStart:int ->
+external copyOffsetFromOffset : t -> t -> targetStart:int -> sourceStart:int ->
   int = "copy" [@@bs.send]
-external copyOffsetFromSourceRange : t -> t -> targetStart:int -> sourceStart:int ->
+external copyOffsetFromRange : t -> t -> targetStart:int -> sourceStart:int ->
   sourceEnd:int -> int = "copy" [@@bs.send]
 external copyToUint8Array : t -> Uint8Array.t -> int = "copy" [@@bs.send]
 external copyToUint8ArrayOffset : t -> Uint8Array.t -> targetStart:int ->
   int = "copy" [@@bs.send]
-external copyToUint8ArrayFromSource : t -> Uint8Array.t -> targetStart:int ->
+external copyToUint8ArrayFrom: t -> Uint8Array.t -> targetStart:int ->
   sourceStart:int -> int = "copy" [@@bs.send]
 external copyToUint8ArrayFromRange : t -> Uint8Array.t -> targetStart:int ->
   sourceStart:int -> sourceEnd:int -> int = "copy" [@@bs.send]
@@ -123,7 +123,7 @@ external fillIntRange : t -> value:int -> offset:int -> end_:int -> t =
 external includesString : t -> Js.String.t -> bool = "includes" [@@bs.send]
 external includesStringFrom : t -> value:Js.String.t -> offset:int -> bool =
   "includes" [@@bs.send]
-external includesStringFromWithEncoding : t -> value:Js.String.t -> offset:int ->
+external includesStringWithEncodingFrom : t -> value:Js.String.t -> offset:int ->
   encoding:Js.String.t -> bool ="includes" [@@bs.send]
 external includesBuffer : t -> t -> bool = "includes" [@@bs.send]
 external includesBufferFrom : t -> value:t -> offset:int -> bool =
@@ -135,7 +135,7 @@ external includesIntFrom : t -> value:int -> offset:int -> bool =
 external indexOfString : t -> Js.String.t -> int = "indexOf" [@@bs.send]
 external indexOfStringFrom : t -> value:Js.String.t -> offset:int -> int =
   "indexOf" [@@bs.send]
-external indexOfStringFromWithEncoding : t -> value:Js.String.t -> offset:int ->
+external indexOfStringWithEncodingFrom : t -> value:Js.String.t -> offset:int ->
   encoding:Js.String.t -> int ="indexOf" [@@bs.send]
 external indexOfBuffer : t -> t -> int = "indexOf" [@@bs.send]
 external indexOfBufferFrom : t -> value:t -> offset:int -> int =
@@ -150,7 +150,7 @@ external indexOfIntFrom : t -> value:int -> offset:int -> int =
 external lastIndexOfString : t -> Js.String.t -> int = "lastIndexOf" [@@bs.send]
 external lastIndexOfStringFrom : t -> value:Js.String.t -> offset:int -> int =
   "lastIndexOf" [@@bs.send]
-external lastIndexOfStringFromWithEncoding : t -> value:Js.String.t -> offset:int ->
+external lastIndexOfStringWithEncodingFrom : t -> value:Js.String.t -> offset:int ->
   encoding:Js.String.t -> int ="lastIndexOf" [@@bs.send]
 external lastIndexOfBuffer : t -> t -> int = "lastIndexOf" [@@bs.send]
 external lastIndexOfBufferFrom : t -> value:t -> offset:int -> int =
@@ -381,5 +381,5 @@ let writeUintLittleEndianNoAssert buffer ~value ~offset ~length = writeUintLittl
 external _INSPECT_MAX_BYTES : t -> int = "INSPECT_MAX_BYTES" [@@bs.get]
 external kMaxLength : t -> int = "" [@@bs.get]
 
-external transcode : t -> source:t -> fromEnc:Js.String.t -> toEnc:Js.String.t ->
+external transcode : t -> source:t -> from:Js.String.t -> to_:Js.String.t ->
   t = "" [@@bs.send]
